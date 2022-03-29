@@ -23,20 +23,21 @@ root 为二叉搜索树
 
 */
 	
-    public boolean findTarget(TreeNode root, int k) {
+	public boolean findTarget(TreeNode root, int k) {
 		HashSet<Integer> hashset = new HashSet<Integer>();
 		return preOrder(root, hashset, k);
-    }
-    
-    public boolean preOrder(TreeNode root,HashSet<Integer> hashset,int k){
-		if (root == null)
+	}
+	
+	public boolean preOrder(TreeNode root, HashSet<Integer> hashset, int k) {
+		if (root == null) {
 			return false;
+		}
 		if (hashset.contains(k - root.val)) {
 			return true;
 		}
 		hashset.add(root.val);
 		return preOrder(root.left, hashset, k) || preOrder(root.right, hashset, k);
-    }
+	}
     
 	public static void main(String[] args) {
 		Mar21 mar21 = new Mar21();
@@ -44,9 +45,9 @@ root 为二叉搜索树
 		int k = 9;
 		BinarySearchTree bst = new BinarySearchTree(5, 3, 6, 2, 4, null, 7);
 		System.out.println(mar21.findTarget(bst.getRoot(), k));
-		
+
 		k = 28;
-		bst = new BinarySearchTree(5,3,6,2,4,null,7);
+		bst = new BinarySearchTree(5, 3, 6, 2, 4, null, 7);
 		System.out.println(mar21.findTarget(bst.getRoot(), k));
 	}
 
