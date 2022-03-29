@@ -57,5 +57,8 @@ public class BinarySearchTree {
 	public static void main(String[] args) {
 		BinarySearchTree bst = new BinarySearchTree(5, 3, 6, 2, 4, null, 7);
 		System.out.println(bst);
+		
+		bst = new BinarySearchTree(1, 2, 3, 4);
+		System.out.println(bst);
 	}
 }
