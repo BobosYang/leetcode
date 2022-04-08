@@ -26,7 +26,8 @@ s 和 goal 由小写英文字母组成
 	
 	public boolean rotateString1(String s, String goal) {
 		String full = s + s;
-		return (full.indexOf(goal)>=0) && (full.length() >= (full.indexOf(goal) + s.length())) && (goal.equals(full.substring(full.indexOf(goal), full.indexOf(goal)+ s.length())));
+		return (full.indexOf(goal) >= 0) && (full.length() >= (full.indexOf(goal) + s.length()))
+				&& (goal.equals(full.substring(full.indexOf(goal), full.indexOf(goal) + s.length())));
 	}
 		
 	public boolean rotateString(String s, String goal) {
