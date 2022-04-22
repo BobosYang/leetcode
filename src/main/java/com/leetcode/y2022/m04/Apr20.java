@@ -59,7 +59,7 @@ public class Apr20 {
 
 	public int lengthLongestPath(String input) {
 		int length = 0;
-		String[] inputSplitByEnter = input.split("\\\\n");
+		String[] inputSplitByEnter = input.split("\\n");
 		System.out.println(Arrays.toString(inputSplitByEnter));
 
 		String fileName = null;
@@ -70,9 +70,9 @@ public class Apr20 {
 		boolean isDirectory = false;
 		for (String line : inputSplitByEnter) {
 			currentFilePathLevel = getLevel(line);
-			fileName = line.replace("\\t", "");
+			fileName = line.replace("\t", "");
 			isDirectory = isDirectory(fileName);
-			System.out.printf("=====line:%s(level %d)(last level %d)-----", line.replace("\\t", "⟶"),
+			System.out.printf("=====line:%s(level %d)(last level %d)-----", line.replace("\t", "⟶"),
 					currentFilePathLevel, lastFilePathLevel);
 
 			if (currentFilePathLevel < lastFilePathLevel) {
@@ -100,8 +100,12 @@ public class Apr20 {
 					fullFilePath = String.join("/", currentFilePath);
 				} else {
 					if (currentFilePath.size() > 0) {
-						fullFilePath = String.join("/", currentFilePath.subList(0, currentFilePath.size() - 1)) + "/"
-								+ fileName;
+						fullFilePath = String.join("/", currentFilePath.subList(0, currentFilePath.size() - 1));
+						if (fullFilePath == null || ("").equals(fullFilePath)) {
+							fullFilePath = fileName;
+						} else {
+							fullFilePath = fullFilePath + "/" + fileName;
+						}
 					} else {
 						fullFilePath = fileName;
 					}
@@ -133,7 +137,7 @@ public class Apr20 {
 	}
 
 	private int getLevel(String line) {
-		Pattern pattern = Pattern.compile("\\\\t");
+		Pattern pattern = Pattern.compile("\\t");
 		Matcher matcher = null;
 		matcher = pattern.matcher(line);
 		int level = 0;
@@ -145,14 +149,25 @@ public class Apr20 {
 		return level;
 	}
 
+//	private int getLevel(String line) {
+//		int level = 0;
+////		System.out.printf("%s %d\n", line, line.indexOf("\t"));
+//		while (line.indexOf("\t") >= 0) {
+////			System.out.println(line.substring(line.indexOf("\t") + "\t".length(), line.length()));
+//			line = line.substring(line.indexOf("\t") + "\t".length(), line.length());
+//			level++;
+//		}
+//		return level;
+//	}
+
 	public static void main(String[] args) {
 		Apr20 apr20 = new Apr20();
 
-		String input = "dir\\n\\tsubdir1\\n\\tsubdir2\\n\\t\\tfile.ext";
+		String input = "dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext";
 		System.out.printf("lengthLongestPath=%d\n", apr20.lengthLongestPath(input));
 		System.out.println("---------------------------------------------------------------------------------------");
 
-		input = "dir\\n\\tsubdir1\\n\\t\\tfile1.ext\\n\\t\\tsubsubdir1\\n\\tsubdir2\\n\\t\\tsubsubdir2\\n\\t\\t\\tfile2.ext";
+		input = "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext";
 		System.out.printf("lengthLongestPath=%d\n", apr20.lengthLongestPath(input));
 		System.out.println("---------------------------------------------------------------------------------------");
 
@@ -160,7 +175,15 @@ public class Apr20 {
 		System.out.printf("lengthLongestPath=%d\n", apr20.lengthLongestPath(input));
 		System.out.println("---------------------------------------------------------------------------------------");
 
-		input = "file1.txt\\nfile2.txt\\nlongfile.txt";
+		input = "file1.txt\nfile2.txt\nlongfile.txt";
+		System.out.printf("lengthLongestPath=%d\n", apr20.lengthLongestPath(input));
+		System.out.println("---------------------------------------------------------------------------------------");
+
+		input = "dir\n        file.txt";
+		System.out.printf("lengthLongestPath=%d\n", apr20.lengthLongestPath(input));
+		System.out.println("---------------------------------------------------------------------------------------");
+		
+		input = "skd\n\talskjv\n\t\tlskjf\n\t\t\tklsj.slkj\n\t\tsdlfkj.sdlkjf\n\t\tslkdjf.sdfkj\n\tsldkjf\n\t\tlskdjf\n\t\t\tslkdjf.sldkjf\n\t\t\tslkjf\n\t\t\tsfdklj\n\t\t\tlskjdflk.sdkflj\n\t\t\tsdlkjfl\n\t\t\t\tlskdjf\n\t\t\t\t\tlskdjf.sdlkfj\n\t\t\t\t\tlsdkjf\n\t\t\t\t\t\tsldkfjl.sdlfkj\n\t\t\t\tsldfjlkjd\n\t\t\tsdlfjlk\n\t\t\tlsdkjf\n\t\tlsdkjfl\n\tskdjfl\n\t\tsladkfjlj\n\t\tlskjdflkjsdlfjsldjfljslkjlkjslkjslfjlskjgldfjlkfdjbljdbkjdlkjkasljfklasjdfkljaklwejrkljewkljfslkjflksjfvsafjlgjfljgklsdf.a";
 		System.out.printf("lengthLongestPath=%d\n", apr20.lengthLongestPath(input));
 		System.out.println("---------------------------------------------------------------------------------------");
 
