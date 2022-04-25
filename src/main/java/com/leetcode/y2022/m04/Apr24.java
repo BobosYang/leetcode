@@ -51,6 +51,58 @@ public class Apr24 {
 		return gap;
 	}
 
+	public int binaryGap1(int n) {
+		String s = Integer.toBinaryString(n);
+		int pre = -1;
+		int max = 0;
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == '1') {
+				if (pre == -1) {
+					pre = i;
+				} else {
+					max = Math.max(i - pre, max);
+					pre = i;
+				}
+			}
+		}
+		return max;
+	}
+	
+	public int binaryGap2(int n) {
+		int count = 0;
+		int maxGap = 0;
+		while (n > 0 && (n & 1) == 0) {
+			n = (n >> 1);
+		}
+		while (n > 0) {
+			if ((n & 1) == 1 && count > 0) {
+				maxGap = Math.max(maxGap, count);
+				count = 0;
+			}
+			count++;
+			n = (n >> 1);
+		}
+		return maxGap;
+	}
+
+	public int binaryGap3(int n) {
+		int nCurOne = -1;
+		int nLastOne = -1;
+		int ans = 0;
+		while (n != 0) {
+			nCurOne++;
+			int nCurNum = n % 2;
+			if (nCurNum == 1) {
+				if (nLastOne != -1) {
+					ans = Math.max(nCurOne - nLastOne, ans);
+				}
+				nLastOne = nCurOne;
+			}
+			n = n >> 1;
+		}
+		return ans;
+	}
+    
 	public static void main(String[] args) {
 		Apr24 apr24 = new Apr24();
 
